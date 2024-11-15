@@ -10,7 +10,8 @@
 ## Về bảng mạch ESP32-S2 mini
 - Ảnh chụp 2 mặt của board
 - List các chức năng có thể dùng được.
-- Pinmap
+- Pinout map:
+![ESP32-S2 Mini Pinout](https://github.com/ElectricalThinking29/ESP32S2Mini_OnOffLED-Example/tree/main/ESP32S2MiniPinoutVer2.jpg)
 
 ## Lưu ý khi kích hoạt chức năng WiFi
 - Mất bộ ADC nào -> Các chân nào sẽ không dùng chức năng ADC được nữa
