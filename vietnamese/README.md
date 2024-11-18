@@ -8,13 +8,31 @@
   - Code, nạp code, kết quả đạt được.
  
 ## Về bảng mạch ESP32-S2 mini
-- Ảnh chụp 2 mặt của board
-- Đặc điểm kỹ thuật:
-  - Tần số hoạt động   : 240 MHz <sup>(Đây là tần số sau bộ chia tần số cao, tần số hoạt động thực tế cấp cho các ngoại vi sẽ thấp hơn nhiều)</sup>
-  - Điện áp hoạt động  : 3.3 VDC
-  - Kết nối + cấp nguồn qua cổng USB type C
-  - 
-- Các chức năng có thể dùng được trên bảng mạch WEMOS ESP32-S2 Mini
+| Bảng mạch ESP32-S2 mini |
+|:---:|
+| Mặt trước |
+|![Mặt trước](/images/esp32s2mini_front_brightened.jpg)|
+| Mặt sau |
+|![Mặt sau](/images/esp32s2mini_rear_brightened.jpg)
+
+
+| Đặc điểm kỹ thuật | Thông số |
+|:---|:---|
+|Tần số hoạt động | 240 MHz (*)|
+|Điện áp hoạt động | 3.3 VDC |
+|Dòng điện định mức | - A |
+|Cổng kết nối + cấp nguồn| USB type C|
+
+(*) : Đây là tần số sau bộ chia tần số cao, tần số hoạt động thực tế cấp cho các ngoại vi sẽ thấp hơn nhiều
+
+
+**Các chức năng có thể dùng được trên bảng mạch WEMOS ESP32-S2 Mini**
+|Chức năng|Tên khối|Ghi chú|
+|:---|:---|:---|
+|GPIO|1-14, 15-18, 33-40| tối đa 27 GPIOs|
+|RTC GPIO|1-14||
+|ADC|ADC1, ADC2|Mỗi bộ có 10 kênh|
+|DAC|DAC1, DAC2|Mỗi bộ có 1 kênh |
   - GPIO    : có thể dùng tới 27 chân GPIO: GPIO 1-14, 15-18, 33-40
   - RTC GPIO:
   - ADC     :
@@ -26,10 +44,11 @@
   - PWM     :
 
 - Pinout map:
-![ESP32-S2 Mini Pinout](https://github.com/ElectricalThinking29/ESP32S2Mini_OnOffLED-Example/tree/main/ESP32S2MiniPinoutVer2.jpg?raw=true)
+![ESP32-S2 Mini Pinout](/images/ESP32S2MiniPinoutVer2.jpg)
 
 ## Lưu ý khi kích hoạt chức năng WiFi
-- Mất bộ ADC nào -> Các chân nào sẽ không dùng chức năng ADC được nữa
+Khi đã kích hoạt chức năng WiFi trên ESP32 S2 thì bộ ADC2 sẽ không thể sử dụng được nữa.
+> Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc của `adc2_get_raw()` có thể không thành công giữa `esp_wifi_start()` và `esp_wifi_stop()` (Trích [nguồn tham khảo 3](#Nguồn-tham-khảo))
 
 ## Thiết lập môi trường lập trình
 ### Dùng PlatformIO trên VS Code
@@ -56,3 +75,4 @@
 ## Nguồn tham khảo
 1. [S2 mini - WEMOS](https://www.wemos.cc/en/latest/s2/s2_mini.html)
 2. [ESP32S2Mini_OnOffLED-Example - (Me)Electricalthinking29](https://github.com/ElectricalThinking29/ESP32S2Mini_OnOffLED-Example/tree/main)
+3. [Analog to Digital Converter (ADC) - Espressif Systems (Shanghai) Co., Ltd](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32s2/api-reference/peripherals/adc.html)
