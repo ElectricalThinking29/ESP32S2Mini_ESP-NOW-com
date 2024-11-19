@@ -18,12 +18,14 @@
 
 | Đặc điểm kỹ thuật | Thông số |
 |:---|:---|
-|Tần số hoạt động | 240 MHz (*)|
-|Điện áp hoạt động | 3.3 VDC |
-|Dòng điện định mức | - A |
+|Tần số hoạt động của CPU | 240 MHz (*)|
+|Tần số cấp cho khối APB| 80 MHz(**) |
+|Điện áp hoạt động | 1.8 ~ 3.6 VDC |
+|Dòng điện định mức | 68 ~ 310 mA |
 |Cổng kết nối + cấp nguồn| USB type C|
 
-(*) : Đây là tần số sau bộ chia tần số cao, tần số hoạt động thực tế cấp cho các ngoại vi sẽ thấp hơn nhiều
+(*) : Có thể chỉnh thành các giá trị 80, 160, 240 MHz. Mặc định (nếu lập trình trên Aurduino IDE hoặc PlaformIO) là 240 MHz
+(**): Mặc định là 80 MHz.
 
 
 **Các chức năng có thể dùng được trên bảng mạch WEMOS ESP32-S2 Mini**
@@ -73,6 +75,7 @@ Khi đã kích hoạt chức năng WiFi trên ESP32 S2 thì bộ ADC2 sẽ khôn
 ## Video Youtube
 
 ## Nguồn tham khảo
-1. [S2 mini - WEMOS](https://www.wemos.cc/en/latest/s2/s2_mini.html)
-2. [ESP32S2Mini_OnOffLED-Example - (Me)Electricalthinking29](https://github.com/ElectricalThinking29/ESP32S2Mini_OnOffLED-Example/tree/main)
+1. [S2 mini - WEMOS * not an actual reference](https://www.wemos.cc/en/latest/s2/s2_mini.html)
+2. [ESP32S2Mini_OnOffLED-Example - (Me)Electricalthinking29 * not an actual reference](https://github.com/ElectricalThinking29/ESP32S2Mini_OnOffLED-Example/tree/main)
 3. [Analog to Digital Converter (ADC) - Espressif Systems (Shanghai) Co., Ltd](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32s2/api-reference/peripherals/adc.html)
+4. [ESP32 S2 Mini * not an actual reference](https://www.sudo.is/docs/esphome/boards/esp32s2mini/)
