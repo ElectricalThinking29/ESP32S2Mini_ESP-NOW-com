@@ -24,11 +24,11 @@
 |Dòng điện định mức | 68 ~ 310 mA |
 |Cổng kết nối + cấp nguồn| USB type C|
 
-(*) : Có thể chỉnh thành các giá trị 80, 160, 240 MHz. Mặc định (nếu lập trình trên Aurduino IDE hoặc PlaformIO) là 240 MHz
-(**): Mặc định là 80 MHz.
+(*) : Có thể chỉnh thành các giá trị 80, 160, 240 MHz. Mặc định (nếu lập trình trên Aurduino IDE hoặc PlaformIO) là 240 MHz.
+<br />(**): Mặc định là 80 MHz.
 
 
-**Các chức năng có thể dùng được trên bảng mạch WEMOS ESP32-S2 Mini**
+<br /><br />**Các chức năng có thể dùng được trên bảng mạch WEMOS ESP32-S2 Mini**
 |Chức năng|Tên khối|Ghi chú|
 |:---|:---|:---|
 |GPIO|1-14, 15-18, 33-40| tối đa 27 GPIOs|
@@ -50,7 +50,7 @@
 
 ## Lưu ý khi kích hoạt chức năng WiFi
 Khi đã kích hoạt chức năng WiFi trên ESP32 S2 thì bộ ADC2 sẽ không thể sử dụng được nữa.
-> Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc của `adc2_get_raw()` có thể không thành công giữa `esp_wifi_start()` và `esp_wifi_stop()` (Trích [nguồn tham khảo 3](#Nguồn-tham-khảo))
+> Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc của `adc2_get_raw()` có thể không thành công khi chương trình đang thực thi giữa `esp_wifi_start()` và `esp_wifi_stop()` (Trích [nguồn tham khảo 3](#Nguồn-tham-khảo))
 
 ## Thiết lập môi trường lập trình
 ### Dùng PlatformIO trên VS Code
