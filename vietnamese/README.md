@@ -8,14 +8,13 @@
   - Code, nạp code, kết quả đạt được.
  
 ## Về bảng mạch ESP32-S2 mini
-| Bảng mạch ESP32-S2 mini |
-|:---:|
-| Mặt trước |
-|![Mặt trước](/images/esp32s2mini_front_brightened.jpg)|
-| Mặt sau |
-|![Mặt sau](/images/esp32s2mini_rear_brightened.jpg)
+### Bảng mạch ESP32-S2 mini
+<div align="center">
 
-
+| Mặt trước | Mặt sau |
+|:---:|:---:|
+|<img src="https://github.com/ElectricalThinking29/ESP32S2Mini_ESP-NOW-com/blob/main/images/esp32s2mini_front_brightened.jpg" width="400" height="400" />|<img src="https://github.com/ElectricalThinking29/ESP32S2Mini_ESP-NOW-com/blob/main/images/esp32s2mini_rear_brightened.jpg" width="400" height="400" />|
+  
 | Đặc điểm kỹ thuật | Thông số |
 |:---|:---|
 |Tần số hoạt động của CPU | 240 MHz (*)|
@@ -24,28 +23,27 @@
 |Dòng điện định mức | 68 ~ 310 mA |
 |Cổng kết nối + cấp nguồn| USB type C|
 
+</div>
 (*) : Có thể chỉnh thành các giá trị 80, 160, 240 MHz. Mặc định (nếu lập trình trên Aurduino IDE hoặc PlaformIO) là 240 MHz.
-<br />(**): Mặc định là 80 MHz.
+<br />(**): Mặc định (nếu lập trình trên Aurduino IDE hoặc PlaformIO) là 80 MHz.
 
 
-<br /><br />**Các chức năng có thể dùng được trên bảng mạch WEMOS ESP32-S2 Mini**
+### Các chức năng có thể dùng được trên bảng mạch WEMOS ESP32-S2 Mini
 |Chức năng|Tên khối|Ghi chú|
 |:---|:---|:---|
 |GPIO|1-14, 15-18, 33-40| tối đa 27 GPIOs|
 |RTC GPIO|1-14||
-|ADC|ADC1, ADC2|Mỗi bộ có 10 kênh|
-|DAC|DAC1, DAC2|Mỗi bộ có 1 kênh |
-  - GPIO    : có thể dùng tới 27 chân GPIO: GPIO 1-14, 15-18, 33-40
-  - RTC GPIO:
-  - ADC     :
-  - DAC     :
-  - UART    :
-  - SPI     :
-  - I2C     :
-  - Cảm biến điện dung:
-  - PWM     :
+|ADC|ADC1; ADC2|Mỗi bộ có 10 kênh|
+|DAC|DAC1; DAC2|Mỗi bộ có 1 kênh |
+|UART|UART1|UART0 không đấu chân ra vì dùng cho cổng USB.<br />Nếu dùng SoftwareSerial.h, bạn có thể thiết lập 2 chân GPIO "trống" bất kỳ nào làm Tx và Rx|
+|SPI|MISO(SDO), MOSI(SDI), SCK(SCLK), SS|Nếu dùng SoftSPI.h, bạn có thể thiết lập 4 chân GPIO "trống" bất kỳ nào làm 4 chân của SPI * Not confirm|
+|I2C|||
+|Chân cảm biến chạm (Touch pins)|||
+|PWM||Tần số mặc định: 1 kHz. Nếu dùng ledcSetup() thì có thể chỉnh tần số PWM lên tới 40 MHz|
+|USB|||
+|RF|WiFi|Không có Bluetooth|
 
-- Pinout map:
+### Pinout map
 ![ESP32-S2 Mini Pinout](/images/ESP32S2MiniPinoutVer2.jpg)
 
 ## Lưu ý khi kích hoạt chức năng WiFi
@@ -54,8 +52,12 @@ Khi đã kích hoạt chức năng WiFi trên ESP32 S2 thì bộ ADC2 sẽ khôn
 
 ## Thiết lập môi trường lập trình
 ### Dùng PlatformIO trên VS Code
+Tạo project
+  - Chọn tên Board: WEMOS LOLIN S2 
+
 
 ### Dùng ArduinoIDE
+
 
 ## Code, nạp code và kết quả
 ### [Không bắt buộc] Lấy địa chỉ MAC của board ESP32
@@ -77,5 +79,6 @@ Khi đã kích hoạt chức năng WiFi trên ESP32 S2 thì bộ ADC2 sẽ khôn
 ## Nguồn tham khảo
 1. [S2 mini - WEMOS * not an actual reference](https://www.wemos.cc/en/latest/s2/s2_mini.html)
 2. [ESP32S2Mini_OnOffLED-Example - (Me)Electricalthinking29 * not an actual reference](https://github.com/ElectricalThinking29/ESP32S2Mini_OnOffLED-Example/tree/main)
-3. [Analog to Digital Converter (ADC) - Espressif Systems (Shanghai) Co., Ltd](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32s2/api-reference/peripherals/adc.html)
+3. [Analog to Digital Converter (ADC) - Espressif Systems (Shanghai) Co., Ltd * not an actual reference](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32s2/api-reference/peripherals/adc.html)
 4. [ESP32 S2 Mini * not an actual reference](https://www.sudo.is/docs/esphome/boards/esp32s2mini/)
+5. [ESP32-S2 Series datasheet - Espressif Systems (Shanghai) Co., Ltd](https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf)
