@@ -29,32 +29,43 @@
 
 
 ### Các chức năng có thể dùng được trên bảng mạch WEMOS ESP32-S2 Mini
-|Chức năng|Tên khối|Ghi chú|
+|Chức năng|Tên chân|Ghi chú|
 |:---|:---|:---|
 |GPIO|1-14, 15-18, 33-40| tối đa 27 GPIOs|
 |RTC GPIO|1-14||
 |ADC|ADC1; ADC2|Mỗi bộ có 10 kênh|
 |DAC|DAC1; DAC2|Mỗi bộ có 1 kênh |
-|UART|UART1|UART0 không đấu chân ra vì dùng cho cổng USB.<br />Nếu dùng SoftwareSerial.h, bạn có thể thiết lập 2 chân GPIO "trống" bất kỳ nào làm Tx và Rx|
-|SPI|MISO(SDO), MOSI(SDI), SCK(SCLK), SS|Nếu dùng SoftSPI.h, bạn có thể thiết lập 4 chân GPIO "trống" bất kỳ nào làm 4 chân của SPI * Not confirm|
-|I2C|||
-|Chân cảm biến chạm (Touch pins)|||
-|PWM||Tần số mặc định: 1 kHz. Nếu dùng ledcSetup() thì có thể chỉnh tần số PWM lên tới 40 MHz|
-|USB|||
+|UART|UART1|UART0 không đấu chân ra vì dùng cho cổng USB.<br />Nếu dùng ```SoftwareSerial.h```, bạn có thể thiết lập 2 chân GPIO "trống" bất kỳ nào làm Tx và Rx (+)|
+|SPI|MISO(SDO), MOSI(SDI), SCK(SCLK), SS|Nếu dùng thư viện ```SPI.h```, bạn có thể thiết lập 4 chân GPIO "trống" bất kỳ nào làm 4 chân của SPI (+)|
+|I2C|SCL, SDA|Nếu dùng thư viện ```Wire.h```, bạn có thể thiết lập 2 chân GPIO "trống" bất kỳ nào làm 2 chân của SPI (+)|
+|Chân cảm biến chạm (Touch pins)|TOUCH1-14||
+|PWM|Mọi chân GPIO||Tần số mặc định: 1 kHz. Nếu dùng ledcSetup() thì có thể chỉnh tần số PWM lên tới 40 MHz|
+|USB|Type C||
 |RF|WiFi|Không có Bluetooth|
+
+(+) : Vài chân sẽ không thể thực hiện được 1 hoặc toàn bộ chức năng.<br />
+- Các chân cần chú ý bao gồm:
+  - GPIO 0: Chân Boot
+  - GPIO 34-39: Chỉ Input
+- Nên sử dụng chân "cứng" đúng với chức năng của nó để đảm bảo vi xử lý chạy ổn định và đạt hiệu suất cao nhất.
+<br />
 
 ### Pinout map
 ![ESP32-S2 Mini Pinout](/images/ESP32S2MiniPinoutVer2.jpg)
 
 ## Lưu ý khi kích hoạt chức năng WiFi
-Khi đã kích hoạt chức năng WiFi trên ESP32 S2 thì bộ ADC2 sẽ không thể sử dụng được nữa.
-> Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc của `adc2_get_raw()` có thể không thành công khi chương trình đang thực thi giữa `esp_wifi_start()` và `esp_wifi_stop()` (Trích [nguồn tham khảo 3](#Nguồn-tham-khảo))
+Khi đã kích hoạt chức năng WiFi trên ESP32 S2 thì bộ ADC2 sẽ không thể sử dụng được nữa.<br /><br />
+_"Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc của `adc2_get_raw()` có thể không thành công khi chương trình đang thực thi giữa `esp_wifi_start()` và `esp_wifi_stop()`"_ <br /><br />
+(Trích [nguồn tham khảo 3](#Nguồn-tham-khảo))
 
 ## Thiết lập môi trường lập trình
 ### Dùng PlatformIO trên VS Code
-Tạo project
-  - Chọn tên Board: WEMOS LOLIN S2 
-
+1. Tạo project
+    - Chọn tên Board: WEMOS LOLIN S2.
+2. Kiểm tra thông tin, chỉnh sửa file platformio.ini nếu cần
+    - Các bạn có thể tham khảo file [platformio.ini này]().
+3. Viết chương trình của bạn vào file main.cpp
+    - Địa chỉ: ```Project/src/main.cpp```
 
 ### Dùng ArduinoIDE
 
@@ -77,8 +88,9 @@ Tạo project
 ## Video Youtube
 
 ## Nguồn tham khảo
-1. [S2 mini - WEMOS * not an actual reference](https://www.wemos.cc/en/latest/s2/s2_mini.html)
-2. [ESP32S2Mini_OnOffLED-Example - (Me)Electricalthinking29 * not an actual reference](https://github.com/ElectricalThinking29/ESP32S2Mini_OnOffLED-Example/tree/main)
-3. [Analog to Digital Converter (ADC) - Espressif Systems (Shanghai) Co., Ltd * not an actual reference](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32s2/api-reference/peripherals/adc.html)
-4. [ESP32 S2 Mini * not an actual reference](https://www.sudo.is/docs/esphome/boards/esp32s2mini/)
+1. [S2 mini - WEMOS ](https://www.wemos.cc/en/latest/s2/s2_mini.html)
+2. [ESP32S2Mini_OnOffLED-Example - (Me)Electricalthinking29](https://github.com/ElectricalThinking29/ESP32S2Mini_OnOffLED-Example/tree/main)
+3. [Analog to Digital Converter (ADC) - Espressif Systems (Shanghai) Co., Ltd](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32s2/api-reference/peripherals/adc.html)
+4. [ESP32 S2 Mini](https://www.sudo.is/docs/esphome/boards/esp32s2mini/)
 5. [ESP32-S2 Series datasheet - Espressif Systems (Shanghai) Co., Ltd](https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf)
+6. [ESP32 SPI Communication: Set Pins, Multiple SPI Bus Interfaces, and Peripherals (Arduino IDE) - Random Nerd Tutorials](https://randomnerdtutorials.com/esp32-spi-communication-arduino/)
