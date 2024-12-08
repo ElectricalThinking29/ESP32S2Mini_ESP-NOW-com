@@ -1,5 +1,7 @@
 # Lập trình bảng mạch ESP32-S2 mini giao tiếp qua WiFi dùng giao thức ESP-NOW
 
+Ngôn ngữ khác: [English](https://github.com/ElectricalThinking29/ESP32S2Mini_ESP-NOW-com/blob/main/README.md)
+
 ## Tổng quan
 - Bài viết sẽ trình bày về:
   - Các chức năng có thể dùng được trên bảng mạch ESP32-S2 mini
@@ -65,23 +67,41 @@ _"Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc 
 2. Kiểm tra thông tin, chỉnh sửa file platformio.ini nếu cần
     - Các bạn có thể tham khảo file [platformio.ini này]().
 3. Viết chương trình của bạn vào file main.cpp
-    - Địa chỉ: ```Project/src/main.cpp```
+    - Bố cục project:
+```
+[Project]
+ |-[.pio]
+ |-[.vscode]
+ |-[include]
+ |-[lib]
+ |-[src]
+    |-main.cpp <------ Viết code ở đây
+ |-[test]
+ |-.gitignore
+ |-platformio.ini
+```
 
 ### Dùng ArduinoIDE
-
+<Not support>
 
 ## Code, nạp code và kết quả
 ### [Không bắt buộc] Lấy địa chỉ MAC của board ESP32
-
-> Code lấy địa chỉ MAC của board ESP32 mình để ở [đây].
+- Địa chỉ MAC là địa chỉ của thiết bị và là duy nhất trên toàn thế giới do nhà sản xuất quy định.
+- Địa chỉ MAC là 1 mã 48 bit (6 bytes).
+- Không nhất thiết phải có địa chỉ MAC của thiết bị nhận gói tin ESP-NOW thì mới có thể gửi gói tin ESP-NOW. Hoàn toàn có thể dùng địa chỉ phát:
+```
+FF:FF:FF:FF:FF
+```
+để gửi gói tin qua ESP-NOW. Khi này, bất cứ thiết bị đang chờ nhận từ giao thức ESP-NOW đều có thể nhận gói tin này.
+- Code lấy địa chỉ MAC của board ESP32 mình để ở [đây].
 
 ### Lập trình board ESP32 gửi gói tin ESP-NOW
 
-> Code lập trình board ESP32 gửi gói tin ESP-NOW mình để ở [đây].
+- Code lập trình board ESP32 gửi gói tin ESP-NOW mình để ở [đây].
 
 ### Lập trình board ESP32 nhận gói tin ESP-NOW
 
-> Code lập trình board ESP32 nhận gói tin ESP-NOW mình để ở [đây].
+- Code lập trình board ESP32 nhận gói tin ESP-NOW mình để ở [đây].
 
 ### Nạp code, kết quả
 
