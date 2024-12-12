@@ -70,19 +70,19 @@ _"Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc 
     - Bố cục project:
 ```
 [Project]
- |-[.pio]
- |-[.vscode]
- |-[include]
- |-[lib]
- |-[src]
-    |-main.cpp <------ Viết code ở đây
- |-[test]
- |-.gitignore
- |-platformio.ini
+ |__[.pio]
+ |__[.vscode]
+ |__[include]
+ |__[lib]
+ |__[src]
+     |__main.cpp <------ Viết code ở đây
+ |__[test]
+ |__.gitignore
+ |__platformio.ini
 ```
 
 ### Dùng ArduinoIDE
-<Not support>
+
 
 ## Code, nạp code và kết quả
 ### [Không bắt buộc] Lấy địa chỉ MAC của board ESP32
@@ -93,15 +93,20 @@ _"Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc 
 FF:FF:FF:FF:FF
 ```
 để gửi gói tin qua ESP-NOW. Khi này, bất cứ thiết bị đang chờ nhận từ giao thức ESP-NOW đều có thể nhận gói tin này.
-- Code lấy địa chỉ MAC của board ESP32 mình để ở [đây].
+- Code lấy địa chỉ MAC của board ESP32 mình để ở [đây](). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
 
 ### Lập trình board ESP32 gửi gói tin ESP-NOW
-
-- Code lập trình board ESP32 gửi gói tin ESP-NOW mình để ở [đây].
+- Chương trình sẽ:
+  - Khởi tạo module WiFi, kích hoạt WiFi
+  - Tạo một biến struct chứa thông tin (địa chỉ MAC) của thiết bị muốn kết nối bằng giao thức ESP-NOW.
+  - Đăng ký thiết bị muốn kết nối với module esp-now.
+  - Gửi 1 gói tin cứ mỗi 1 giây mà không dùng delay().
+  - Chớp tắt LED nếu gửi thành công. Tắt LED nếu việc gửi bị lỗi.
+- Code lập trình board ESP32 gửi gói tin ESP-NOW mình để ở [đây](). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
 
 ### Lập trình board ESP32 nhận gói tin ESP-NOW
 
-- Code lập trình board ESP32 nhận gói tin ESP-NOW mình để ở [đây].
+- Code lập trình board ESP32 nhận gói tin ESP-NOW mình để ở [đây](). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
 
 ### Nạp code, kết quả
 
