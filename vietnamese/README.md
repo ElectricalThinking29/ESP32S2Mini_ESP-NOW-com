@@ -65,7 +65,7 @@ _"Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc 
 1. Tạo project
     - Chọn tên Board: WEMOS LOLIN S2.
 2. Kiểm tra thông tin, chỉnh sửa file platformio.ini nếu cần
-    - Các bạn có thể tham khảo file [platformio.ini này]().
+    - Các bạn có thể tham khảo file [platformio.ini này](Code/platformio.ini).
 3. Viết chương trình của bạn vào file main.cpp
     - Bố cục project:
 ```
@@ -86,31 +86,38 @@ _"Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc 
 
 ## Code, nạp code và kết quả
 ### [Không bắt buộc] Lấy địa chỉ MAC của board ESP32
+#### Địa chỉ MAC
 - Địa chỉ MAC là địa chỉ của thiết bị và là duy nhất trên toàn thế giới do nhà sản xuất quy định.
-- Địa chỉ MAC là 1 mã 48 bit (6 bytes).
-- Không nhất thiết phải có địa chỉ MAC của thiết bị nhận gói tin ESP-NOW thì mới có thể gửi gói tin ESP-NOW. Hoàn toàn có thể dùng địa chỉ phát:
-```
-FF:FF:FF:FF:FF
-```
-để gửi gói tin qua ESP-NOW. Khi này, bất cứ thiết bị đang chờ nhận từ giao thức ESP-NOW đều có thể nhận gói tin này.
-- Code lấy địa chỉ MAC của board ESP32 mình để ở [đây](). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
+- Địa chỉ MAC là 1 mã 48 bit (6 bytes), ví dụ:```12:34:56:78:9A:BC```.
+- Không nhất thiết phải có địa chỉ MAC của thiết bị nhận gói tin ESP-NOW thì mới có thể gửi gói tin ESP-NOW. Hoàn toàn có thể dùng địa chỉ phát:```FF:FF:FF:FF:FF:FF```để gửi gói tin qua ESP-NOW. Khi này, bất cứ thiết bị đang chờ nhận từ giao thức ESP-NOW đều có thể nhận gói tin này.
+#### Chương trình (code)
+- Code lấy địa chỉ MAC của board ESP32 mình để ở [đây](Code/src/getMAC_v03_m.cpp). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
+#### Khái quát về chương trình này
+- Chương trình sẽ:
+  - In ra cổng Serial (baudrate = 115200) thông tin địa chỉ MAC của board ESP32 này cứ mỗi 1 giây.
 
 ### Lập trình board ESP32 gửi gói tin ESP-NOW
+#### Chương trình (code)
+- Code lập trình board ESP32 gửi gói tin ESP-NOW mình để ở [đây](Code/src/Sender_v05_m.cpp). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
+#### Khái quát về chương trình này
 - Chương trình sẽ:
   - Khởi tạo module WiFi, kích hoạt WiFi
   - Tạo một biến struct chứa thông tin (địa chỉ MAC) của thiết bị muốn kết nối bằng giao thức ESP-NOW.
   - Đăng ký thiết bị muốn kết nối với module esp-now.
   - Gửi 1 gói tin cứ mỗi 1 giây mà không dùng delay().
   - Chớp tắt LED nếu gửi thành công. Tắt LED nếu việc gửi bị lỗi.
-- Code lập trình board ESP32 gửi gói tin ESP-NOW mình để ở [đây](). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
 
 ### Lập trình board ESP32 nhận gói tin ESP-NOW
-
-- Code lập trình board ESP32 nhận gói tin ESP-NOW mình để ở [đây](). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
+#### Chương trình (code)
+- Code lập trình board ESP32 nhận gói tin ESP-NOW mình để ở [đây](Code/src/Receiver_v02_m.cpp). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
+#### Khái quát về chương trình này
+- Chương trình sẽ:
+  - Khởi tạo module WiFi, kích hoạt WiFi
+  - Đăng kí hàm xử lý ngắt khi nhận gói tin ESP-NOW
+  - In gói tin nhận được ra cổng Serial (baudrate = 115200)
 
 ### Nạp code, kết quả
-
-## Video Youtube
+- Video Youtube
 
 ## Nguồn tham khảo
 1. [S2 mini - WEMOS ](https://www.wemos.cc/en/latest/s2/s2_mini.html)
