@@ -94,7 +94,7 @@ _"Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc 
 - Code lấy địa chỉ MAC của board ESP32 mình để ở [đây](/Code/src/getMAC_v03_m.cpp). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
 #### Khái quát về chương trình này
 - Chương trình sẽ:
-  - In ra cổng Serial (baudrate = 115200) thông tin địa chỉ MAC của board ESP32 này cứ mỗi 1 giây.
+  - In ra cổng Serial (baudrate = 115200) thông tin địa chỉ MAC của board ESP32 này.
 
 ### Lập trình board ESP32 gửi gói tin ESP-NOW
 #### Chương trình (code)
@@ -116,8 +116,8 @@ _"Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc 
   - Đăng kí hàm xử lý ngắt khi nhận gói tin ESP-NOW
   - In gói tin nhận được ra cổng Serial (baudrate = 115200)
 
-### Nạp code, kết quả
-- Video Youtube
+### Youtube
+[WiFi trên bảng mạch ESP32-S2 Mini](https://youtu.be/QS1hqV-2Io4)
 
 ## Nguồn tham khảo
 1. [S2 mini - WEMOS ](https://www.wemos.cc/en/latest/s2/s2_mini.html)
