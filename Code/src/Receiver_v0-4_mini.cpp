@@ -28,10 +28,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * @file		Receiver_V0.cpp
+ * @file		Receiver_v0-4_mini.cpp
  * @author		The ElectricTHINK
  * @brief 		ESP-NOW Receiver
- * @version 	0.3
+ * @version 	0.4
  * @remarks		Program for esp32 receiving data from sender using ESP-NOW.
  * 				It will immediately print out the sender MAC address and received data
  * 				whenever it receives a full message.
@@ -48,9 +48,9 @@
 #define U8_MAC_ADDR_SIZE		(uint8_t)6				// Sender MAC Address [Size](Bytes)
 
 
-bool 		b_message_received;													// Flag for message received
-uint8_t 	u8_message_data[U8_MESSAGE_SIZE];									// Received message
-uint8_t		u8_Sender_MAC[U8_MAC_ADDR_SIZE];									// Sender MAC address
+bool 		b_message_received;							// Flag for message received
+uint8_t 	u8_message_data[U8_MESSAGE_SIZE];			// Received message
+uint8_t		u8_Sender_MAC[U8_MAC_ADDR_SIZE];			// Sender MAC address
 
 
 void OnDataRecv(const uint8_t *pu8_mac, const uint8_t *pu8_incomingData, int i32_len);
@@ -61,14 +61,15 @@ void setup()
 	b_message_received = false;													// Set receive flag to false
 
 	Serial.begin(115200);														// Initialize Serial port for debug
-	
-	Serial.println("Init ESP-NOW Receiver\n");									// Init ESP-NOW
+	delay(2000);																// Wait for user to connect
+
+	Serial.println("ESP-NOW Receiver Initialize start...");						// Init ESP-NOW
 	
 	WiFi.mode(WIFI_STA);														// Set Wifi mode to STA mode
 	esp_now_init();
 	esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));					// Register ESP-NOW receive callback function
 
-	Serial.println("ESP-NOW Receiver initialized\n");
+	Serial.println("ESP-NOW Receiver initialized");
 }
  
 void loop()
@@ -79,18 +80,28 @@ void loop()
 
 		Serial.println("\nReceived message from sender");						// Print Sender MAC
 		Serial.print("Sender MAC: ");
-		for (int i = 0; i < U8_MAC_ADDR_SIZE - 1; i++)
-		{
-			Serial.print(u8_Sender_MAC[i], HEX);
-			Serial.print(":");
-		}
+		Serial.print(u8_Sender_MAC[0], HEX);
+		Serial.print(":");
+		Serial.print(u8_Sender_MAC[1], HEX);
+		Serial.print(":");
+		Serial.print(u8_Sender_MAC[2], HEX);
+		Serial.print(":");
+		Serial.print(u8_Sender_MAC[3], HEX);
+		Serial.print(":");
+		Serial.print(u8_Sender_MAC[4], HEX);
+		Serial.print(":");
 		Serial.println(u8_Sender_MAC[5], HEX);
 
 		Serial.printf("Received Message:  %s\n", u8_message_data);				// Print message
 	}
 }
- 
-/// @brief Callback function when ESP-NOW received data
+
+/**
+ * @brief Callback function when ESP-NOW received data
+ * @param pu8_mac MAC address of whom has sent the message
+ * @param pu8_incomingData The sent message
+ * @param i32_len The length of that message
+ */
 void OnDataRecv(const uint8_t *pu8_mac, const uint8_t *pu8_incomingData, int i32_len)
 {
 	if (i32_len == U8_MESSAGE_SIZE)
