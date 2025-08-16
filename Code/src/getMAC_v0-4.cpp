@@ -11,7 +11,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 // /*** LICENSE ***
 //
-// Copyright 2024 @ElectricalThinking29
+// Copyright 2025 @ElectricalThinking29
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@
  * @file		getMAC.cpp
  * @author		The ElectricTHINK
  * @brief 		Get the MAC address of the ESP32 S2 Mini
- * @version 	0.3
+ * @version 	0.4
  * @remarks		
  */
 
@@ -44,16 +44,23 @@ void readMacAddress();
 void setup()
 {
 	Serial.begin(115200);
+	for (size_t i = 0; i < 10; i++)
+	{
+		Serial.printf(" %d", 10 - i);
+		delay(1000);
+	}
+	Serial.println("\nStart.");
 
 	WiFi.mode(WIFI_STA);
 	WiFi.begin();
+
+	Serial.print("\nESP32 Board MAC Address: ");
+	readMacAddress();
 }
  
 void loop()
 {
-	Serial.print("\nESP32 Board MAC Address: ");
-  	readMacAddress();
-	delay(1000);
+	delay(10000);
 }
 
 void readMacAddress()
@@ -63,7 +70,7 @@ void readMacAddress()
 	
 	if (result == ESP_OK) 
 	{
-		Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x\n",
+		Serial.printf("%02x, %02x, %02x, %02x, %02x, %02x\n",
 					u8_MacAdd[0], u8_MacAdd[1], u8_MacAdd[2], u8_MacAdd[3], u8_MacAdd[4], u8_MacAdd[5]);
 	}
 	else
