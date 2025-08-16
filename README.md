@@ -75,7 +75,7 @@ _"Because ADC2 is also used by Wi‑Fi, attempts to read with `adc2_get_raw()` m
  |__[include]
  |__[lib]
  |__[src]
-     |__main.cpp <------ Viết code ở đây
+     |__main.cpp <------ Write code here
  |__[test]
  |__.gitignore
  |__platformio.ini
