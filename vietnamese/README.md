@@ -39,7 +39,7 @@ Ngôn ngữ khác: [English](https://github.com/ElectricalThinking29/ESP32S2Mini
 |DAC|DAC1; DAC2|Mỗi bộ có 1 kênh |
 |UART|UART1|UART0 không đấu chân ra vì dùng cho cổng USB.<br />Nếu dùng ```SoftwareSerial.h```, bạn có thể thiết lập 2 chân GPIO "trống" bất kỳ nào làm Tx và Rx (+)|
 |SPI|MISO(SDO), MOSI(SDI), SCK(SCLK), SS|Nếu dùng thư viện ```SPI.h```, bạn có thể thiết lập 4 chân GPIO "trống" bất kỳ nào làm 4 chân của SPI (+)|
-|I2C|SCL, SDA|Nếu dùng thư viện ```Wire.h```, bạn có thể thiết lập 2 chân GPIO "trống" bất kỳ nào làm 2 chân của SPI (+)|
+|I²C|SCL, SDA|Nếu dùng thư viện ```Wire.h```, bạn có thể thiết lập 2 chân GPIO "trống" bất kỳ nào làm 2 chân của I²C (+)|
 |Chân cảm biến chạm (Touch pins)|TOUCH1-14||
 |PWM|Mọi chân GPIO||Tần số mặc định: 1 kHz. Nếu dùng ledcSetup() thì có thể chỉnh tần số PWM lên tới 40 MHz|
 |USB|Type C||
