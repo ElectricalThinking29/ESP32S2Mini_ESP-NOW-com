@@ -31,7 +31,7 @@
  * @file		Sender_V03.cpp
  * @author		The ElectricTHINK
  * @brief 		ESP-NOW Sender
- * @version 	1.1
+ * @version 	1.2
  * @remarks		- Program for esp32 sending data to other receiver using ESP-NOW for every 1 second.
  * 				- This program use no delay() function. So it will not block the loop.
  * 				- Depending on sent result:
@@ -51,19 +51,28 @@
 #define U32_T1S					(uint32_t)1000							// 1000 Milliseconds (= 1 second)
 
 
-/// @brief MAC address of ESP-NOW Receiver information
-const esp_now_peer_info_t st_ESPNOW_Receiver_info = {
-    .peer_addr	= {	0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF},				// MAC address for Broadcasting. Change this to your receiver's MAC address
-    .lmk		= {	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-                    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
-    .channel	= 0,
-    .ifidx		= WIFI_IF_STA,
-    .encrypt	= false,
-    .priv		= 0x00000000,											// 32-bit OS pointer
+/**
+ * @brief Receiver Information
+ * @param peer_addr MAC address. Change this to your receiver's MAC address.
+ * 				(Default: 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF)
+*/
+const esp_now_peer_info_t st_ESPNOW_Receiver_info = 
+{
+	.peer_addr	= {	0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF},
+	.lmk		= {	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+	.channel	= 0,
+	.ifidx		= WIFI_IF_STA,
+	.encrypt	= false,
+	.priv		= 0x00000000,											// 32-bit OS pointer
 };
+const uint8_t pu8_mes[U8_MESSAGE_SIZE] = "ESP-NOW";						// The send data is fixed as 8 bytes. Make sure that the received data variable is also set to 8 bytes.
 
 
 bool b_is_LED_HIGH;														// Store status of LED
+uint32_t u32_previous_T1sec_time;										// The previous milis value
+uint32_t u32_previous_T500ms_time;										// The previous milis value
+esp_err_t i32_status;													// This is for debugging
 
 
 void ToggleLED(void);
@@ -72,64 +81,67 @@ void TurnOffLED(void);
 
 void setup()
 {
-    Serial.begin(115200);												// Initialize Serial port for debug
-    pinMode(BUILTIN_LED, OUTPUT);										// Initialize LED
+	Serial.begin(115200);												// Initialize Serial port for debug
+	delay(2000);														// Wait for user to connect
 
-    Serial.println("ESP-NOW Sender Initialize...");
+	pinMode(BUILTIN_LED, OUTPUT);										// Initialize LED
 
-    WiFi.mode(WIFI_MODE_STA);											// Set WiFi mode to STA mode
-    esp_now_init();														// Init ESP-NOW
-    esp_now_add_peer(&st_ESPNOW_Receiver_info);							// Setting peer info
+	Serial.println("ESP-NOW Sender Initialize start...");
 
-    Serial.println("ESP-NOW Sender Initialized.");
+	WiFi.mode(WIFI_MODE_STA);											// Set WiFi mode to STA mode
+	i32_status = esp_now_init();										// Init ESP-NOW
+	i32_status = esp_now_add_peer(&st_ESPNOW_Receiver_info);			// Setting peer info
+
+	Serial.println("ESP-NOW Sender Initialized.");
+
+	u32_previous_T500ms_time = millis();								// Init time counters value
+	u32_previous_T1sec_time  = millis();
 }
 
 
 void loop()
 {
-    uint8_t pu8_mes[U8_MESSAGE_SIZE] = "ESP-NOW";						// The sent data is 8 bytes. Make sure that the received data variable is also set to 8 bytes.
-    static uint32_t u32_previous_T1sec_time 	= 0;					// The previous milis value
-    static uint32_t u32_previous_T500ms_time	= 0;					// The previous milis value
-    static esp_err_t i32_status = ESP_FAIL;								// This is for debugging
-
-    // 500 ms cycle
-    if (millis() - u32_previous_T500ms_time >= U32_T500MS)
-    {
-        u32_previous_T500ms_time += U32_T500MS;
+	// 500 ms cycle
+	if (millis() - u32_previous_T500ms_time >= U32_T500MS)
+	{
+		u32_previous_T500ms_time += U32_T500MS;
 		
-        if (i32_status == ESP_OK)
-        {
-            ToggleLED();
-        }
-        else
-        {
-            TurnOffLED();
-        }
-    }
-    
-    // 1 second cycle
-    if (millis() - u32_previous_T1sec_time >= U32_T1S)
-    {
-        u32_previous_T1sec_time += U32_T1S;
+		if (i32_status == ESP_OK)
+		{
+			ToggleLED();
+		}
+		else
+		{
+			TurnOffLED();
+		}
+	}
+	
+	// 1 second cycle
+	if (millis() - u32_previous_T1sec_time >= U32_T1S)
+	{
+		u32_previous_T1sec_time += U32_T1S;
 
 		// Send message via ESP-NOW
-        i32_status = esp_now_send(st_ESPNOW_Receiver_info.peer_addr, pu8_mes, U8_MESSAGE_SIZE);
-    }
+		i32_status = esp_now_send(st_ESPNOW_Receiver_info.peer_addr, pu8_mes, U8_MESSAGE_SIZE);
+	}
 }
 
-
-/// @brief  Toogle LED. Oon ESP32 S2 Mini board it is GPIO 15
-/// @param  void
+/**
+ * @brief  Toogle LED. Oon ESP32 S2 Mini board it is GPIO 15
+ * @param  void
+*/
 void ToggleLED(void)
 {
-    b_is_LED_HIGH = !b_is_LED_HIGH;
-    digitalWrite(BUILTIN_LED, b_is_LED_HIGH);
+	b_is_LED_HIGH = !b_is_LED_HIGH;
+	digitalWrite(BUILTIN_LED, b_is_LED_HIGH);
 }
 
-/// @brief  Turn off LED. On ESP32 S2 Mini board it is GPIO 15
-/// @param  void
+/**
+ * @brief  Turn off LED. On ESP32 S2 Mini board it is GPIO 15
+ * @param  void
+ */ 
 void TurnOffLED(void)
 {
-    b_is_LED_HIGH = false;
-    digitalWrite(BUILTIN_LED, LOW);
+	b_is_LED_HIGH = false;
+	digitalWrite(BUILTIN_LED, LOW);
 }
