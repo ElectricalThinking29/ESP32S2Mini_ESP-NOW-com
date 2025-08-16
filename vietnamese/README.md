@@ -91,14 +91,14 @@ _"Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc 
 - Địa chỉ MAC là 1 mã 48 bit (6 bytes), ví dụ:```12:34:56:78:9A:BC```.
 - Không nhất thiết phải có địa chỉ MAC của thiết bị nhận gói tin ESP-NOW thì mới có thể gửi gói tin ESP-NOW. Hoàn toàn có thể dùng địa chỉ phát:```FF:FF:FF:FF:FF:FF```để gửi gói tin qua ESP-NOW. Khi này, bất cứ thiết bị đang chờ nhận từ giao thức ESP-NOW đều có thể nhận gói tin này.
 #### Chương trình (code)
-- Code lấy địa chỉ MAC của board ESP32 mình để ở [đây](/Code/src/getMAC_v03_m.cpp). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
+- Code lấy địa chỉ MAC của board ESP32 mình để ở [đây](/Code/src/getMAC_v0-4.cpp). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
 #### Khái quát về chương trình này
 - Chương trình sẽ:
   - In ra cổng Serial (baudrate = 115200) thông tin địa chỉ MAC của board ESP32 này.
 
 ### Lập trình board ESP32 gửi gói tin ESP-NOW
 #### Chương trình (code)
-- Code lập trình board ESP32 gửi gói tin ESP-NOW mình để ở [đây](/Code/src/Sender_v05_m.cpp). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
+- Code lập trình board ESP32 gửi gói tin ESP-NOW mình để ở [đây](/Code/src/Sender_v1-2_mini.cpp). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
 #### Khái quát về chương trình này
 - Chương trình sẽ:
   - Khởi tạo module WiFi, kích hoạt WiFi
@@ -109,7 +109,7 @@ _"Vì mô-đun ADC2 cũng được Wi-Fi sử dụng nên hoạt động đọc 
 
 ### Lập trình board ESP32 nhận gói tin ESP-NOW
 #### Chương trình (code)
-- Code lập trình board ESP32 nhận gói tin ESP-NOW mình để ở [đây](/Code/src/Receiver_v02_m.cpp). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
+- Code lập trình board ESP32 nhận gói tin ESP-NOW mình để ở [đây](/Code/src/Receiver_v0-4_mini.cpp). Các bạn chỉ cần copy và paste lại vào file ```main.cpp``` là được !
 #### Khái quát về chương trình này
 - Chương trình sẽ:
   - Khởi tạo module WiFi, kích hoạt WiFi
