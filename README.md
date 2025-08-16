@@ -58,7 +58,7 @@ Other language: [Tiếng Việt](https://github.com/ElectricalThinking29/ESP32S2
 ## Note when enabling Wi‑Fi
 Once you enable Wi‑Fi on the ESP32‑S2, ADC2 can no longer be used.<br /><br />
 _"Because ADC2 is also used by Wi‑Fi, attempts to read with `adc2_get_raw()` may fail while the program is running between `esp_wifi_start()` and `esp_wifi_stop()`"_ <br /><br />
-(Quoted from [Reference 3](# References))
+(Quoted from [Reference 3](#References)
 
 ## Setting up the programming environment
 ### Using PlatformIO in VS Code
